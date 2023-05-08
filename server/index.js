@@ -9,7 +9,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin : "http://localhost:3000",
+        origin : "http://localhost:3001",
         methods: ["GET", "POST"] 
         // all this is to resolve the CORS issue that might come with the socket.io
     }
@@ -17,11 +17,16 @@ const io = new Server(server, {
 
 
 io.on("connection", (socket) => {
-    console.log(socket.id)
+    console.log( `user connected ${socket.id}`)
 
+
+    socket.on("joinRoom", (data) => {
+        socket.join(data)
+        console.log(`user with id ${socket.id} joined room ${data}`)
+    })
 
     socket.on("disconnect", () => {
-        console.log("user disconnected")
+        console.log(`user disconnected ${socket.id}`)
     })
 })
 
