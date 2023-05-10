@@ -20,6 +20,10 @@ io.on("connection", (socket) => {
     console.log( `user connected ${socket.id}`)
 
 
+    socket.on("sendMessage", (data) => {
+        console.log(data)
+    })
+
     socket.on("joinRoom", (data) => {
         socket.join(data)
         console.log(`user with id ${socket.id} joined room ${data}`)
